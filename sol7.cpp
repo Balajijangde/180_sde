@@ -1,21 +1,32 @@
 class Solution {
 public:
-    vector<vector<int>> generate(int numRows) {
-        vector<vector<int>> result;
-        for(int i=1; i<=numRows; i++){
-            vector<int> part;
-            int initial = 1;
-            for(int j=0; j<i; j++){
-                
-                if(j>0){
-                    initial = initial * (i-j);
-                    initial = initial / j;
+    void setZeroes(vector<vector<int>>& matrix) {
+        //columns = matrix[0].size();
+        //rows = matrix.size();
+        
+        //traverse matrix once and respectively mark the dummy array
+        bool col = true;
+        for(int r=0; r<matrix.size(); r++){
+            if(matrix[r][0] == 0)
+                col = false;
+            for(int c=1; c<matrix[0].size(); c++){
+                if(matrix[r][c] == 0){
+                        matrix[0][c] = 0;
+                        matrix[r][0] = 0;
                 }
-                part.insert(part.end(), initial);
-            }
-            result.insert(result.end(), part);
+            } 
         }
         
-        return result;
+        //traverse matrix from last and make elements zero
+        for(int r=matrix.size()-1; r>=0; r--){
+            for(int c=matrix[0].size()-1; c>=1; c--){
+                if(matrix[0][c] == 0 || matrix[r][0] == 0){
+                    matrix[r][c] = 0;
+                }
+            }
+            if(col == false)
+                matrix[r][0] = 0;
+        }
+        
     }
 };
