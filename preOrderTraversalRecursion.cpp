@@ -14,11 +14,11 @@ public:
     void recur(TreeNode* root, vector<int> &result){
         if(root == nullptr)
             return;
-        recur(root->left, result);
         result.push_back(root->val);
+        recur(root->left, result);
         recur(root->right, result);
     }
-    vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> preorderTraversal(TreeNode* root) {
         vector<int> result;
         recur(root, result);
         return result;

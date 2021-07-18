@@ -11,16 +11,21 @@
  */
 class Solution {
 public:
-    void recur(TreeNode* root, vector<int> &result){
-        if(root == nullptr)
-            return;
-        recur(root->left, result);
-        result.push_back(root->val);
-        recur(root->right, result);
-    }
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int> result;
-        recur(root, result);
+        stack<TreeNode*> mystack;
+        TreeNode* current = root;
+        while(!mystack.empty() || current != nullptr){
+            if(current != nullptr){
+                mystack.push(current);
+                current = current->left;
+            }else{
+                result.push_back(mystack.top()->val);
+                current = mystack.top()->right;
+                mystack.pop();
+            }
+        }
         return result;
+        
     }
 };
